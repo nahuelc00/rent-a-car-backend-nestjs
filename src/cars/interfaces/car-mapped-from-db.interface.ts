@@ -8,6 +8,7 @@ export interface ICarMappedFromDb {
   kms: number;
   airConditioning: boolean;
   transmission: string;
+  imageUrl: string;
   createdAt: Date;
   updatedAt: Date;
 }

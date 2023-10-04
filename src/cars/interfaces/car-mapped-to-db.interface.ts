@@ -6,5 +6,6 @@ export interface ICarMappedToDb {
   model: string;
   kilometers: number;
   air_conditioning: boolean;
+  image_url: string;
   transmission: string;
 }

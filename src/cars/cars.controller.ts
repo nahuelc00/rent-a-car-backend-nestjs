@@ -8,6 +8,8 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CarsService } from './cars.service';
 import { Car } from './entities/car.entity';
@@ -18,6 +20,7 @@ import { ICarMappedFromDb } from './interfaces/car-mapped-from-db.interface';
 import { mapEntity } from './mappers/mapEntityFromDb';
 import { mapEntityToDb } from './mappers/mapEntityToDb';
 import { ICarMappedToDb } from './interfaces/car-mapped-to-db.interface';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('cars')
 export class CarsController {
@@ -44,11 +47,22 @@ export class CarsController {
   }
 
   @Post()
-  async saveCar(@Body() carToSave: CreateCarDto): Promise<ICarMappedFromDb> {
+  @UseInterceptors(
+    FileInterceptor('file', {
+      dest: './uploads',
+    }),
+  )
+  async saveCar(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() carToSave: CreateCarDto,
+  ): Promise<any> {
     try {
-      const carToDb: ICarMappedToDb = mapEntityToDb(carToSave);
+      const imageUrl = `http://localhost:${process.env.PORT}/${file.filename}`;
+
+      const carToDb: ICarMappedToDb = mapEntityToDb({ ...carToSave, imageUrl });
 
       const carSaved: Car = await this.carsService.save(carToDb);
+
       const carMapped = mapEntity(carSaved);
 
       return carMapped;
@@ -57,10 +71,23 @@ export class CarsController {
     }
   }
 
+  // Create a module for save photos
   @Put()
-  async updateCar(@Body() carToUpdate: UpdateCarDto): Promise<UpdateResult> {
+  @UseInterceptors(
+    FileInterceptor('file', {
+      dest: './uploads',
+    }),
+  )
+  async updateCar(
+    @Body() carToUpdate: UpdateCarDto,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<UpdateResult> {
     try {
-      const carMappedToDb: ICarMappedToDb = mapEntityToDb(carToUpdate);
+      const imageUrl = `http://localhost:${process.env.PORT}/${file.filename}`;
+      const carMappedToDb: ICarMappedToDb = mapEntityToDb({
+        ...carToUpdate,
+        imageUrl,
+      });
 
       const resultCarUpdated: UpdateResult = await this.carsService.update(
         Number(carToUpdate.id),

@@ -35,6 +35,9 @@ export class Car {
   @Column()
   transmission: string;
 
+  @Column()
+  image_url: string;
+
   @CreateDateColumn()
   created_at: Date;
 

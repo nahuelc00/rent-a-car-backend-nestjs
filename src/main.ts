@@ -8,5 +8,6 @@ async function bootstrap() {
   app.enableCors();
 
   await app.listen(PORT);
+  console.log('Server run in port ' + PORT);
 }
 bootstrap();

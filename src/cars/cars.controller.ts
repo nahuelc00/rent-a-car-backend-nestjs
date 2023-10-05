@@ -49,7 +49,7 @@ export class CarsController {
   @Post()
   @UseInterceptors(
     FileInterceptor('file', {
-      dest: './uploads',
+      dest: process.env.IMAGES_DEST,
     }),
   )
   async saveCar(
@@ -71,11 +71,10 @@ export class CarsController {
     }
   }
 
-  // Create a module for save photos
   @Put()
   @UseInterceptors(
     FileInterceptor('file', {
-      dest: './uploads',
+      dest: process.env.IMAGES_DEST,
     }),
   )
   async updateCar(

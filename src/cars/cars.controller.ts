@@ -49,7 +49,7 @@ export class CarsController {
   @Post()
   @UseInterceptors(
     FileInterceptor('file', {
-      dest: process.env.IMAGES_DEST,
+      dest: 'uploads',
     }),
   )
   async saveCar(
@@ -57,7 +57,10 @@ export class CarsController {
     @Body() carToSave: CreateCarDto,
   ): Promise<any> {
     try {
+      console.log(file);
+
       const imageUrl = `http://localhost:${process.env.PORT}/${file.filename}`;
+      console.log(imageUrl);
 
       const carToDb: ICarMappedToDb = mapEntityToDb({ ...carToSave, imageUrl });
 
@@ -74,7 +77,7 @@ export class CarsController {
   @Put()
   @UseInterceptors(
     FileInterceptor('file', {
-      dest: process.env.IMAGES_DEST,
+      dest: 'uploads',
     }),
   )
   async updateCar(

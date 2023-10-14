@@ -55,7 +55,7 @@ export class CarsController {
   async saveCar(
     @UploadedFile() file: Express.Multer.File,
     @Body() carToSave: CreateCarDto,
-  ): Promise<any> {
+  ): Promise<ICarMappedFromDb> {
     try {
       const imageUrl = `http://localhost:${process.env.PORT}/${file.filename}`;
 
@@ -95,7 +95,8 @@ export class CarsController {
 
       const isCarNotFound = resultCarUpdated.affected === 0;
 
-      if (isCarNotFound) throw new Error();
+      if (isCarNotFound)
+        throw new HttpException('Car not found', HttpStatus.NOT_FOUND);
 
       return resultCarUpdated;
     } catch (error) {
@@ -112,7 +113,8 @@ export class CarsController {
 
       const isCarNotFound = resultCarDeleted.affected === 0;
 
-      if (isCarNotFound) throw new Error();
+      if (isCarNotFound)
+        throw new HttpException('Car not found', HttpStatus.NOT_FOUND);
 
       return resultCarDeleted;
     } catch (error) {

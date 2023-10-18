@@ -13,9 +13,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { mapUserFromDB } from './mappers/mapUserFromDB';
 import { mapUserToDB } from './mappers/mapUserToDB';
 import { LoginUserDto } from './dto/login-user-dto';
-const jwt = require('jsonwebtoken');
+import { getSHA1ofPassword } from './utilities';
 
-const PRIVATE_KEY = 'asd123$%&';
+const jwt = require('jsonwebtoken');
 
 @Controller('user')
 export class UserController {
@@ -25,7 +25,7 @@ export class UserController {
   async getUser(@Req() req: Request & { headers: { authorization: string } }) {
     try {
       const tokenAuth = req.headers.authorization;
-      const decoded = jwt.verify(tokenAuth, PRIVATE_KEY);
+      const decoded = jwt.verify(tokenAuth, process.env.PRIVATE_KEY_JWT);
       const user = await this.userService.getById(Number(decoded.id));
       const userMapped = mapUserFromDB(user);
 
@@ -37,7 +37,15 @@ export class UserController {
 
   @Post('register')
   async register(@Body() user: CreateUserDto): Promise<{ registered: string }> {
-    const userMappedToDB = mapUserToDB(user);
+    const passwordHashed = getSHA1ofPassword(user.password);
+
+    const userMappedToDB = mapUserToDB({
+      email: user.email,
+      password: passwordHashed,
+      firstname: user.firstname,
+      lastname: user.lastname,
+    });
+
     const existEmail = await this.userService.getEmail(userMappedToDB.email);
 
     if (existEmail)
@@ -53,7 +61,7 @@ export class UserController {
   async login(@Body() userData: LoginUserDto): Promise<{ token: string }> {
     try {
       const email = userData.email;
-      const password = userData.password;
+      const password = getSHA1ofPassword(userData.password);
 
       const user = await this.userService.getByEmail(email);
 
@@ -61,7 +69,7 @@ export class UserController {
         user.email === email && user.password === password;
 
       if (validCredentials) {
-        const token = jwt.sign({ id: user.id }, PRIVATE_KEY, {
+        const token = jwt.sign({ id: user.id }, process.env.PRIVATE_KEY_JWT, {
           expiresIn: '2 days',
         });
 

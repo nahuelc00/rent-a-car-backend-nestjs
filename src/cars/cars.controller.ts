@@ -57,7 +57,10 @@ export class CarsController {
     @Body() carToSave: CreateCarDto,
   ): Promise<ICarMappedFromDb> {
     try {
-      const imageUrl = `http://localhost:${process.env.PORT}/${file.filename}`;
+      const imageUrl =
+        process.env.NODE_ENV === 'development'
+          ? `http://localhost:${process.env.PORT}/${file.filename}`
+          : `https://${process.env.PRODUCTION_URL}/${file.filename}`;
 
       const carToDb: ICarMappedToDb = mapEntityToDb({ ...carToSave, imageUrl });
 

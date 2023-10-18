@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { CarsModule } from './cars/cars.module';
-import { CarsController } from './cars/cars.controller';
-import { CarsService } from './cars/cars.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Car } from './cars/entities/car.entity';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Car } from './cars/entities/car.entity';
+import { User } from './user/entities/user.entity';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -16,12 +16,18 @@ import { ConfigModule } from '@nestjs/config';
       entities: [Car],
       synchronize: true,
     }),
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: 'database/users.db',
+      name: 'users',
+      entities: [User],
+      synchronize: true,
+    }),
     ServeStaticModule.forRoot({
       rootPath: 'uploads',
     }),
     CarsModule,
+    UserModule,
   ],
-  controllers: [CarsController],
-  providers: [CarsService],
 })
 export class AppModule {}

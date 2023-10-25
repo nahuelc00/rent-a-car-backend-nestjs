@@ -7,11 +7,11 @@ ConfigModule.forRoot();
 
 const CONFIG_DB_PRODUCTION: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: process.env.MYSQL_USERS_HOST,
-  port: Number(process.env.MYSQL_USERS_PORT),
-  username: process.env.MYSQL_USERS_USERNAME,
-  password: process.env.MYSQL_USERS_PASSWORD,
-  database: process.env.MYSQL_USERS_DATABASE,
+  host: process.env.MYSQL_HOST,
+  port: Number(process.env.MYSQL_PORT),
+  username: process.env.MYSQL_USERNAME,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
   entities: [User, Car],
   synchronize: true,
 };

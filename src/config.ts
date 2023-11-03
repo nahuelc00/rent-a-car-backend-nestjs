@@ -6,12 +6,12 @@ import { ConfigModule } from '@nestjs/config';
 ConfigModule.forRoot();
 
 const CONFIG_DB_PRODUCTION: TypeOrmModuleOptions = {
-  type: 'mysql',
-  host: process.env.MYSQL_HOST,
-  port: Number(process.env.MYSQL_PORT),
-  username: process.env.MYSQL_USERNAME,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
+  type: 'postgres',
+  host: process.env.POSTGRESQL_HOST,
+  port: Number(process.env.POSTGRESQL_PORT),
+  username: process.env.POSTGRESQL_USERNAME,
+  password: process.env.POSTGRESQL_PASSWORD,
+  database: process.env.POSTGRESQL_DATABASE,
   entities: [User, Car],
   synchronize: true,
 };

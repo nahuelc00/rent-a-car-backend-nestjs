@@ -4,16 +4,12 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
-import { CONFIG_DB_DEVELOPMENT, CONFIG_DB_PRODUCTION } from './config';
+import { assignDatabaseConfig } from './config';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forRoot(
-      process.env.NODE_ENV === 'development'
-        ? CONFIG_DB_DEVELOPMENT
-        : CONFIG_DB_PRODUCTION,
-    ),
+    TypeOrmModule.forRoot(assignDatabaseConfig(process.env.NODE_ENV)),
     ServeStaticModule.forRoot({
       rootPath: 'uploads',
     }),

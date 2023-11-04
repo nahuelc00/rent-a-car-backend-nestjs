@@ -23,4 +23,9 @@ const CONFIG_DB_DEVELOPMENT: TypeOrmModuleOptions = {
   synchronize: true,
 };
 
-export { CONFIG_DB_PRODUCTION, CONFIG_DB_DEVELOPMENT };
+function assignDatabaseConfig(NODE_ENV: string) {
+  if (NODE_ENV === 'production') return CONFIG_DB_PRODUCTION;
+  if (NODE_ENV === 'development') return CONFIG_DB_DEVELOPMENT;
+}
+
+export { assignDatabaseConfig };

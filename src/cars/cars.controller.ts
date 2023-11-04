@@ -21,6 +21,7 @@ import { mapEntity } from './mappers/mapEntityFromDb';
 import { mapEntityToDb } from './mappers/mapEntityToDb';
 import { ICarMappedToDb } from './interfaces/car-mapped-to-db.interface';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
 
 @Controller('cars')
 export class CarsController {

@@ -40,10 +40,8 @@ export class UserController {
     const passwordHashed = getSHA1ofPassword(user.password);
 
     const userMappedToDB = mapUserToDB({
-      email: user.email,
+      ...user,
       password: passwordHashed,
-      firstname: user.firstname,
-      lastname: user.lastname,
     });
 
     const existEmail = await this.userService.getEmail(userMappedToDB.email);

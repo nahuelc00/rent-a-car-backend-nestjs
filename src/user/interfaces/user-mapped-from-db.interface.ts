@@ -3,6 +3,7 @@ class IUserMappedFromDb {
   firstname: string;
   lastname: string;
   username: string;
+  roles: string;
 }
 
 export { IUserMappedFromDb };

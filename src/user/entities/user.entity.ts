@@ -21,6 +21,9 @@ export class User {
   lastname: string;
 
   @Column()
+  roles: string;
+
+  @Column()
   document_type: string;
 
   @Column()

@@ -10,6 +10,7 @@ class IUserMappedToDb {
   phone: string;
   date_of_birth: string;
   address: string;
+  roles: string;
 }
 
 export { IUserMappedToDb };

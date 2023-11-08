@@ -9,4 +9,5 @@ export class CreateUserDto {
   phone: string;
   dateOfBirth: string;
   address: string;
+  roles: string;
 }

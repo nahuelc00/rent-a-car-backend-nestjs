@@ -20,6 +20,7 @@ function mapUserToDB(user: CreateUserDto): IUserMappedToDb {
     phone: user.phone,
     date_of_birth: user.dateOfBirth,
     address: user.address,
+    roles: user.roles,
   };
 }
 

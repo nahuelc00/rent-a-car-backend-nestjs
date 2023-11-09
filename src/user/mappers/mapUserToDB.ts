@@ -14,12 +14,6 @@ function mapUserToDB(user: CreateUserDto): IUserMappedToDb {
     firstname: user.firstname,
     lastname: user.lastname,
     username: createUsername(user.email),
-    document_type: user.documentType,
-    document_number: user.documentNumber,
-    nationality: user.nationality,
-    phone: user.phone,
-    date_of_birth: user.dateOfBirth,
-    address: user.address,
     roles: user.roles,
   };
 }

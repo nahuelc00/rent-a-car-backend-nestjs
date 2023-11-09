@@ -24,24 +24,6 @@ export class User {
   roles: string;
 
   @Column()
-  document_type: string;
-
-  @Column()
-  document_number: number;
-
-  @Column()
-  nationality: string;
-
-  @Column()
-  phone: string;
-
-  @Column()
-  date_of_birth: string;
-
-  @Column()
-  address: string;
-
-  @Column()
   username: string;
 
   @Column()

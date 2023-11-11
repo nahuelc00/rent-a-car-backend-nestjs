@@ -37,6 +37,12 @@ export class UserController {
 
   @Post('register')
   async register(@Body() user: CreateUserDto): Promise<{ registered: string }> {
+    const userSearched = await this.userService.getByEmail(user.email);
+    const existEmail = userSearched.email !== undefined;
+
+    if (existEmail)
+      throw new HttpException('This email already exists', HttpStatus.CONFLICT);
+
     const passwordHashed = getSHA1ofPassword(user.password);
 
     const userMappedToDB = mapUserToDB({
@@ -44,12 +50,8 @@ export class UserController {
       password: passwordHashed,
     });
 
-    const existEmail = await this.userService.getEmail(userMappedToDB.email);
-
-    if (existEmail)
-      throw new HttpException('This email already exists', HttpStatus.CONFLICT);
-
     const userSaved = await this.userService.save(userMappedToDB);
+
     return {
       registered: userSaved.email,
     };
@@ -57,25 +59,20 @@ export class UserController {
 
   @Post('login')
   async login(@Body() userData: LoginUserDto): Promise<{ token: string }> {
-    try {
-      const email = userData.email;
-      const password = getSHA1ofPassword(userData.password);
+    const email = userData.email;
+    const password = getSHA1ofPassword(userData.password);
 
-      const user = await this.userService.getByEmail(email);
+    const user = await this.userService.getByEmail(email);
 
-      const validCredentials =
-        user.email === email && user.password === password;
+    const validCredentials = user.email === email && user.password === password;
 
-      if (validCredentials) {
-        const token = jwt.sign({ id: user.id }, process.env.PRIVATE_KEY_JWT, {
-          expiresIn: '2 days',
-        });
+    if (validCredentials) {
+      const token = jwt.sign({ id: user.id }, process.env.PRIVATE_KEY_JWT, {
+        expiresIn: '2 days',
+      });
 
-        return { token };
-      } else {
-        throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
-      }
-    } catch (err) {
+      return { token };
+    } else {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
   }

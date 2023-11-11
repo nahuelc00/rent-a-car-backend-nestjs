@@ -16,26 +16,15 @@ export class UserService {
     return user;
   }
 
-  async getEmail(userEmail: string) {
-    const emails = await this.usersRepository.find({
-      select: {
-        email: true,
-      },
-    });
-
-    const email = emails.find((email) => email.email === userEmail);
-    return email;
-  }
-
   async getByEmail(
     userEmail: string,
   ): Promise<{ email: string; password: string; id: number }> {
     const user = await this.usersRepository.findOneBy({ email: userEmail });
 
     return {
-      id: user.id,
-      email: user.email,
-      password: user.password,
+      id: user?.id,
+      email: user?.email,
+      password: user?.password,
     };
   }
 

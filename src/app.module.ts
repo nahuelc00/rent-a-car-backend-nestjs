@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { assignDatabaseConfig } from './config';
+import { ClientModule } from './client/client.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { assignDatabaseConfig } from './config';
     }),
     CarsModule,
     UserModule,
+    ClientModule,
   ],
 })
 export class AppModule {}

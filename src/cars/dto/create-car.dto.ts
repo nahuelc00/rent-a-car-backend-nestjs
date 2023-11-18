@@ -6,7 +6,6 @@ export class CreateCarDto {
   model: string;
   kilometers: number;
   airConditioning: 'yes' | 'no';
-  imageUrl: string;
   transmission: string;
   unitPrice: number;
   totalPrice: number;

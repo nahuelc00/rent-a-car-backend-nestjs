@@ -12,4 +12,6 @@ export class UpdateCarDto extends PartialType(CreateCarDto) {
   airConditioning?: 'yes' | 'no';
   imageUrl?: string;
   transmission?: string;
+  unitPrice: number;
+  totalPrice: number;
 }

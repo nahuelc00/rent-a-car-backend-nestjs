@@ -8,4 +8,6 @@ export class CreateCarDto {
   airConditioning: 'yes' | 'no';
   imageUrl: string;
   transmission: string;
+  unitPrice: number;
+  totalPrice: number;
 }

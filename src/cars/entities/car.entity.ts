@@ -38,6 +38,12 @@ export class Car {
   @Column()
   image_url: string;
 
+  @Column()
+  unit_price: number;
+
+  @Column()
+  total_price: number;
+
   @CreateDateColumn()
   created_at: Date;
 

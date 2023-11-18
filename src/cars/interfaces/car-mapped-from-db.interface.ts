@@ -9,6 +9,8 @@ export interface ICarMappedFromDb {
   airConditioning: boolean;
   transmission: string;
   imageUrl: string;
+  unitPrice: number;
+  totalPrice: number;
   createdAt: Date;
   updatedAt: Date;
 }

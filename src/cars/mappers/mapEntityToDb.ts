@@ -19,5 +19,7 @@ export function mapEntityToDb(
     air_conditioning: validateAirConditioning(car.airConditioning),
     image_url: car.imageUrl,
     transmission: car.transmission,
+    unit_price: car.unitPrice,
+    total_price: car.totalPrice,
   };
 }

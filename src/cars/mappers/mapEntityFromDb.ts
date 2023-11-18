@@ -13,6 +13,8 @@ export function mapEntity(carEntity: Car): ICarMappedFromDb {
     airConditioning: carEntity.air_conditioning,
     transmission: carEntity.transmission,
     imageUrl: carEntity.image_url,
+    unitPrice: carEntity.unit_price,
+    totalPrice: carEntity.total_price,
     createdAt: carEntity.created_at,
     updatedAt: carEntity.updated_at,
   };

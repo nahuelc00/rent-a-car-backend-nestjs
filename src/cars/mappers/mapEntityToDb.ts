@@ -1,14 +1,11 @@
-import { CreateCarDto } from '../dto/create-car.dto';
-import { UpdateCarDto } from '../dto/update-car.dto';
 import { ICarMappedToDb } from '../interfaces/car-mapped-to-db.interface';
+import { ICarToDb } from '../interfaces/car-to-db.interface';
 
 function validateAirConditioning(airConditioning: 'yes' | 'no') {
   return airConditioning === 'yes';
 }
 
-export function mapEntityToDb(
-  car: CreateCarDto | UpdateCarDto,
-): ICarMappedToDb {
+export function mapEntityToDb(car: ICarToDb): ICarMappedToDb {
   return {
     brand: car.brand,
     year: car.year,

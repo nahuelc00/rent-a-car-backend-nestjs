@@ -15,6 +15,7 @@ export function mapEntity(carEntity: Car): ICarMappedFromDb {
     imageUrl: carEntity.image_url,
     unitPrice: carEntity.unit_price,
     totalPrice: carEntity.total_price,
+    licensePlate: carEntity.license_plate,
     createdAt: carEntity.created_at,
     updatedAt: carEntity.updated_at,
   };

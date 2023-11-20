@@ -11,6 +11,7 @@ export interface ICarMappedFromDb {
   imageUrl: string;
   unitPrice: number;
   totalPrice: number;
+  licensePlate: string;
   createdAt: Date;
   updatedAt: Date;
 }

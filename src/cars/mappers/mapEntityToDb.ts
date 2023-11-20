@@ -14,6 +14,7 @@ export function mapEntityToDb(car: ICarToDb): ICarMappedToDb {
     model: car.model,
     kilometers: car.kilometers,
     air_conditioning: validateAirConditioning(car.airConditioning),
+    license_plate: car.licensePlate,
     image_url: car.imageUrl,
     transmission: car.transmission,
     unit_price: car.unitPrice,

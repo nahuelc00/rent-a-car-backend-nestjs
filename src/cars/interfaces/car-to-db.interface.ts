@@ -7,6 +7,7 @@ export interface ICarToDb {
   kilometers: number;
   airConditioning: 'yes' | 'no';
   imageUrl: string;
+  licensePlate: string;
   transmission: string;
   unitPrice: number;
   totalPrice: number;

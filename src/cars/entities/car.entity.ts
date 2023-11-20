@@ -15,6 +15,9 @@ export class Car {
   brand: string;
 
   @Column()
+  license_plate: string;
+
+  @Column()
   year: number;
 
   @Column()

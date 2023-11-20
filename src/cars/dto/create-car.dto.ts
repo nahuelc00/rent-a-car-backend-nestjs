@@ -5,6 +5,7 @@ export class CreateCarDto {
   passengers: number;
   model: string;
   kilometers: number;
+  licensePlate: string;
   airConditioning: 'yes' | 'no';
   transmission: string;
   unitPrice: number;

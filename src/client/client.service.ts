@@ -20,4 +20,12 @@ export class ClientService {
     const clients = await this.clientsRepository.find();
     return clients;
   }
+
+  async getByDni(dni: number): Promise<Client> {
+    const client = await this.clientsRepository.findOneBy({
+      document_number: dni,
+    });
+
+    return client;
+  }
 }

@@ -3,6 +3,7 @@ import { User } from './user/entities/user.entity';
 import { Car } from './cars/entities/car.entity';
 import { ConfigModule } from '@nestjs/config';
 import { Client } from './client/entities/client.entity';
+import { Rent } from './rent/entities/rent.entity';
 
 ConfigModule.forRoot();
 
@@ -13,14 +14,14 @@ const CONFIG_DB_PRODUCTION: TypeOrmModuleOptions = {
   username: process.env.POSTGRESQL_USERNAME,
   password: process.env.POSTGRESQL_PASSWORD,
   database: process.env.POSTGRESQL_DATABASE,
-  entities: [User, Car, Client],
+  entities: [User, Car, Client, Rent],
   synchronize: true,
 };
 
 const CONFIG_DB_DEVELOPMENT: TypeOrmModuleOptions = {
   type: 'sqlite',
   database: 'database/database.db',
-  entities: [Car, User, Client],
+  entities: [Car, User, Client, Rent],
   synchronize: true,
 };
 

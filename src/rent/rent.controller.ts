@@ -4,6 +4,7 @@ import { CarsService } from 'src/cars/cars.service';
 import { ClientService } from 'src/client/client.service';
 import { CreateRentDto } from './dto/create-rent.dto';
 import { mapRentToDb } from './mappers/map-rent-to-db';
+import { mapRentFromDb } from './mappers/map-rent-from-db';
 
 @Controller('rent')
 export class RentController {
@@ -29,6 +30,8 @@ export class RentController {
 
     const rentSaved = await this.rentService.save(rentToSave);
 
-    return rentSaved;
+    const rentMappedFromDb = mapRentFromDb(rentSaved);
+
+    return rentMappedFromDb;
   }
 }

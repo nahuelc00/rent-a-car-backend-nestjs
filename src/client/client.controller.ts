@@ -21,10 +21,18 @@ export class ClientController {
 
     clients.forEach((client) => {
       const isEmailExistent = client.email === createClientDto.email;
+      const isDniExistent =
+        client.document_number === createClientDto.documentNumber;
 
       if (isEmailExistent)
         throw new HttpException(
           'This email already exists',
+          HttpStatus.CONFLICT,
+        );
+
+      if (isDniExistent)
+        throw new HttpException(
+          'This document number already exists',
           HttpStatus.CONFLICT,
         );
     });

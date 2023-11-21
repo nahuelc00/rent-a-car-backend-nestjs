@@ -24,6 +24,14 @@ export class CarsService {
     return car;
   }
 
+  async getByLicensePlate(licensePlate: string): Promise<Car> {
+    const car: Car = await this.carsRepository.findOneBy({
+      license_plate: licensePlate,
+    });
+
+    return car;
+  }
+
   async save(carToSave: CreateCarToDbDto): Promise<Car> {
     const carSaved: Car = await this.carsRepository.save(carToSave);
     return carSaved;

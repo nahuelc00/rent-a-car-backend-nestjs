@@ -56,7 +56,15 @@ export class CarsController {
   async saveCar(
     @UploadedFile() file: Express.Multer.File,
     @Body() carToSave: CreateCarDto,
-  ): Promise<ICarMappedFromDb> {
+  ): Promise<any> {
+    const car = await this.carsService.getByLicensePlate(
+      carToSave.licensePlate,
+    );
+    const isCarExistent = car !== null;
+
+    if (isCarExistent)
+      throw new HttpException('This car already exists', HttpStatus.CONFLICT);
+
     try {
       const imageUrl =
         process.env.NODE_ENV === 'development'

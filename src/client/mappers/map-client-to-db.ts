@@ -1,5 +1,5 @@
 import { CreateClientDto } from '../dto/create-client.dto';
-import { IClientMappedToDb } from '../interfaces/client-to-db.interface';
+import { IClientMappedToDb } from '../interfaces/client-mapped-to-db.interface';
 
 function mapClientToDB(client: CreateClientDto): IClientMappedToDb {
   return {

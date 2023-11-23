@@ -1,5 +1,4 @@
-export interface IClientToDb {
-  id: number;
+export interface IClientMappedToDb {
   firstname: string;
   lastname: string;
   email: string;
@@ -9,6 +8,4 @@ export interface IClientToDb {
   phone: string;
   address: string;
   date_of_birth: string;
-  created_at: Date;
-  updated_at: Date;
 }

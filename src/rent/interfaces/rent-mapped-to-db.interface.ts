@@ -1,6 +1,6 @@
 export interface IRentMappedToDb {
-  car: number;
-  client: number;
+  car_id: number;
+  client_id: number;
   unit_price: number;
   total_price: number;
   date_from: string;

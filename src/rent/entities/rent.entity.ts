@@ -15,6 +15,12 @@ export class Rent {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ name: 'car_id' })
+  car_id: number;
+
+  @Column({ name: 'client_id' })
+  client_id: number;
+
   @OneToOne(() => Client, (client) => client.id)
   @JoinColumn({ name: 'client_id' })
   client: Client;

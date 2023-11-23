@@ -4,14 +4,25 @@ import {
   Body,
   HttpException,
   HttpStatus,
+  Get,
+  Param,
 } from '@nestjs/common';
 import { ClientService } from './client.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { mapClientToDB } from './mappers/map-client-to-db';
+import { mapClientFromDB } from './mappers/map-client-from-db';
 
 @Controller('client')
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
+
+  @Get(':id')
+  async getClient(@Param('id') id: string) {
+    const client = await this.clientService.getById(Number(id));
+    const clientMapped = mapClientFromDB(client);
+
+    return clientMapped;
+  }
 
   @Post('/register')
   async registerClient(

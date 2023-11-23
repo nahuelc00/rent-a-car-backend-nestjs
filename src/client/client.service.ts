@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Client } from './entities/client.entity';
 import { Repository } from 'typeorm';
-import { IClientMappedToDb } from './interfaces/client-to-db.interface';
+import { IClientMappedToDb } from './interfaces/client-mapped-to-db.interface';
 
 @Injectable()
 export class ClientService {
@@ -26,6 +26,11 @@ export class ClientService {
       document_number: dni,
     });
 
+    return client;
+  }
+
+  async getById(id: number): Promise<Client> {
+    const client = await this.clientsRepository.findOneBy({ id });
     return client;
   }
 }

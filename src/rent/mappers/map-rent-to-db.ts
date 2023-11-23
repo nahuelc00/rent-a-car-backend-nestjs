@@ -3,8 +3,8 @@ import { IRentToSave } from '../interfaces/rent-to-save.interface';
 
 function mapRentToDb(rentToSave: IRentToSave): IRentMappedToDb {
   return {
-    car: rentToSave.carId,
-    client: rentToSave.clientId,
+    car_id: rentToSave.carId,
+    client_id: rentToSave.clientId,
     total_price: rentToSave.totalPrice,
     unit_price: rentToSave.unitPrice,
     date_from: rentToSave.dateFrom,

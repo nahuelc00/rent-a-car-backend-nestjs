@@ -24,7 +24,7 @@ export class RentController {
   @Get()
   async getRents() {
     const rents = await this.rentService.getAll();
-    const rentsMapped = rents.map((rent) => mapRentFromDb(rent));
+    const rentsMapped = rents.map(mapRentFromDb);
 
     return rentsMapped;
   }

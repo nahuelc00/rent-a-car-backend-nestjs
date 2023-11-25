@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import {
   Controller,
   Post,
@@ -9,6 +10,7 @@ import {
   Param,
   Delete,
   Res,
+  Req,
 } from '@nestjs/common';
 import { RentService } from './rent.service';
 import { CarsService } from 'src/cars/cars.service';
@@ -17,6 +19,9 @@ import { CreateRentDto } from './dto/create-rent.dto';
 import { mapRentToDb } from './mappers/map-rent-to-db';
 import { mapRentFromDb } from './mappers/map-rent-from-db';
 import { UpdateRentDto } from './dto/update-rent-dto';
+import { UserService } from 'src/user/user.service';
+
+const jwt = require('jsonwebtoken');
 
 @Controller('rent')
 export class RentController {
@@ -24,14 +29,33 @@ export class RentController {
     private readonly rentService: RentService,
     private readonly carsService: CarsService,
     private readonly clientService: ClientService,
+    private readonly userService: UserService,
   ) {}
 
   @Get()
-  async getRents() {
-    const rents = await this.rentService.getAll();
-    const rentsMapped = rents.map(mapRentFromDb);
+  async getRents(
+    @Res() response,
+    @Req() req: Request & { headers: { authorization: string } },
+  ) {
+    try {
+      const tokenAuth = req.headers.authorization;
+      const decoded = jwt.verify(tokenAuth, process.env.PRIVATE_KEY_JWT);
+      const user = await this.userService.getById(Number(decoded.id));
+      const isUserAdmin = user.roles.includes('admin');
 
-    return rentsMapped;
+      if (isUserAdmin) {
+        const rents = await this.rentService.getAll();
+        const rentsMapped = rents.map(mapRentFromDb);
+        response.status(HttpStatus.OK).send(rentsMapped);
+      } else {
+        response.status(HttpStatus.UNAUTHORIZED).send({
+          statusCode: HttpStatus.UNAUTHORIZED,
+          message: 'Only for admin user',
+        });
+      }
+    } catch (error) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
   }
 
   @Post()

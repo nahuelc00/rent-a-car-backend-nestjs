@@ -20,4 +20,16 @@ export class RentService {
     const rentSaved = await this.rentRepository.save(createRentDto);
     return rentSaved;
   }
+
+  async update(id: number, carToUpdate: IRentMappedToDb) {
+    const resultCarUpdated = await this.rentRepository.update(id, carToUpdate);
+
+    return resultCarUpdated;
+  }
+
+  async remove(id: number) {
+    const resultCarDeleted = await this.rentRepository.delete(id);
+
+    return resultCarDeleted;
+  }
 }

@@ -104,8 +104,8 @@ export class RentController {
   @Delete(':id')
   async removeRent(@Res() response, @Param('id') id: string) {
     try {
-      const resultCarDeleted = await this.rentService.remove(Number(id));
-      const isRentNotFound = resultCarDeleted.affected === 0;
+      const resultRentDeleted = await this.rentService.remove(Number(id));
+      const isRentNotFound = resultRentDeleted.affected === 0;
 
       if (isRentNotFound) {
         response.status(HttpStatus.NOT_FOUND).send({
@@ -114,7 +114,7 @@ export class RentController {
         });
       }
 
-      response.status(HttpStatus.OK).send(resultCarDeleted);
+      response.status(HttpStatus.OK).send(resultRentDeleted);
     } catch (error) {
       throw new HttpException('Fail at delete rent', HttpStatus.BAD_REQUEST);
     }

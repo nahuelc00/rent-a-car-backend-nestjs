@@ -22,14 +22,14 @@ export class RentService {
   }
 
   async update(id: number, carToUpdate: IRentMappedToDb) {
-    const resultCarUpdated = await this.rentRepository.update(id, carToUpdate);
+    const resultRentUpdated = await this.rentRepository.update(id, carToUpdate);
 
-    return resultCarUpdated;
+    return resultRentUpdated;
   }
 
   async remove(id: number) {
-    const resultCarDeleted = await this.rentRepository.delete(id);
+    const resultRentDeleted = await this.rentRepository.delete(id);
 
-    return resultCarDeleted;
+    return resultRentDeleted;
   }
 }

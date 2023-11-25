@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import {
   Controller,
   Post,
@@ -6,22 +7,49 @@ import {
   HttpStatus,
   Get,
   Param,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { ClientService } from './client.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { mapClientToDB } from './mappers/map-client-to-db';
 import { mapClientFromDB } from './mappers/map-client-from-db';
+import { UserService } from 'src/user/user.service';
+
+const jwt = require('jsonwebtoken');
 
 @Controller('client')
 export class ClientController {
-  constructor(private readonly clientService: ClientService) {}
+  constructor(
+    private readonly clientService: ClientService,
+    private readonly userService: UserService,
+  ) {}
 
   @Get(':id')
-  async getClient(@Param('id') id: string) {
-    const client = await this.clientService.getById(Number(id));
-    const clientMapped = mapClientFromDB(client);
+  async getClient(
+    @Param('id') id: string,
+    @Res() response,
+    @Req() req: Request & { headers: { authorization: string } },
+  ) {
+    try {
+      const tokenAuth = req.headers.authorization;
+      const decoded = jwt.verify(tokenAuth, process.env.PRIVATE_KEY_JWT);
+      const user = await this.userService.getById(Number(decoded.id));
+      const isUserAdmin = user.roles.includes('admin');
 
-    return clientMapped;
+      if (isUserAdmin) {
+        const client = await this.clientService.getById(Number(id));
+        const clientMapped = mapClientFromDB(client);
+        response.status(HttpStatus.OK).send(clientMapped);
+      } else {
+        response.status(HttpStatus.UNAUTHORIZED).send({
+          statusCode: HttpStatus.UNAUTHORIZED,
+          message: 'Only for admin user',
+        });
+      }
+    } catch (error) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
   }
 
   @Post('/register')

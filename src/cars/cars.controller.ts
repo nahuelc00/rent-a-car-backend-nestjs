@@ -130,6 +130,9 @@ export class CarsController {
 
       return resultCarDeleted;
     } catch (error) {
+      if (error.code === 'SQLITE_CONSTRAINT') {
+        throw new HttpException('This car is rented', HttpStatus.CONFLICT);
+      }
       throw new HttpException('Fail at delete car', HttpStatus.BAD_REQUEST);
     }
   }

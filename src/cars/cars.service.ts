@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Car } from './entities/car.entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateCarToDbDto } from './dto/create-car-to-db.dto';
-import { UpdateCarToDbDto } from './dto/update-car-to-db.dto';
+import { ICarMappedToDb } from './interfaces/car-mapped-to-db.interface';
 
 @Injectable()
 export class CarsService {
@@ -32,15 +31,12 @@ export class CarsService {
     return car;
   }
 
-  async save(carToSave: CreateCarToDbDto): Promise<Car> {
+  async save(carToSave: ICarMappedToDb): Promise<Car> {
     const carSaved: Car = await this.carsRepository.save(carToSave);
     return carSaved;
   }
 
-  async update(
-    id: number,
-    carToUpdate: UpdateCarToDbDto,
-  ): Promise<UpdateResult> {
+  async update(id: number, carToUpdate: ICarMappedToDb): Promise<UpdateResult> {
     const resultCarUpdated: UpdateResult = await this.carsRepository.update(
       id,
       carToUpdate,

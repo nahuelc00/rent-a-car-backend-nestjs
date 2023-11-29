@@ -1,11 +1,8 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { User } from './user/entities/user.entity';
 import { Car } from './cars/entities/car.entity';
-import { ConfigModule } from '@nestjs/config';
 import { Client } from './client/entities/client.entity';
 import { Rent } from './rent/entities/rent.entity';
-
-ConfigModule.forRoot();
 
 const CONFIG_DB_PRODUCTION: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -25,9 +22,17 @@ const CONFIG_DB_DEVELOPMENT: TypeOrmModuleOptions = {
   synchronize: true,
 };
 
+const CONFIG_DB_UNIT_TESTING: TypeOrmModuleOptions = {
+  type: 'sqlite',
+  database: ':memory:',
+  entities: [Car, User, Client, Rent],
+  synchronize: true,
+};
+
 function assignDatabaseConfig(NODE_ENV: string) {
   if (NODE_ENV === 'production') return CONFIG_DB_PRODUCTION;
   if (NODE_ENV === 'development') return CONFIG_DB_DEVELOPMENT;
+  if (NODE_ENV === 'testing') return CONFIG_DB_UNIT_TESTING;
 }
 
 export { assignDatabaseConfig };

@@ -2,9 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CarsService } from './cars.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Car } from './entities/car.entity';
-import { User } from '../user/entities/user.entity';
-import { Client } from '../client/entities/client.entity';
-import { Rent } from '../rent/entities/rent.entity';
 import { assignDatabaseConfig } from 'src/config';
 
 describe('Cars service', () => {
@@ -14,7 +11,7 @@ describe('Cars service', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         TypeOrmModule.forRoot(assignDatabaseConfig(process.env.NODE_ENV)),
-        TypeOrmModule.forFeature([Car, User, Client, Rent]),
+        TypeOrmModule.forFeature([Car]),
       ],
       providers: [CarsService],
     }).compile();

@@ -1,4 +1,4 @@
-function assignImageUrlByEnvironment(filename) {
+function assignImageUrlByEnvironment(filename: string) {
   const isDevelopment = process.env.NODE_ENV === 'development';
   const isTesting = process.env.NODE_ENV === 'testing';
   const isProduction = process.env.NODE_ENV === 'production';

@@ -3,7 +3,6 @@ import { CarsController } from './cars.controller';
 import { CarsService } from './cars.service';
 import { Car } from './entities/car.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/user/entities/user.entity';
 import { Client } from 'src/client/entities/client.entity';
 import { Rent } from 'src/rent/entities/rent.entity';
 import { assignDatabaseConfig } from 'src/config';
@@ -23,7 +22,7 @@ describe('Cars controller', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         TypeOrmModule.forRoot(assignDatabaseConfig(process.env.NODE_ENV)),
-        TypeOrmModule.forFeature([Car, User, Client, Rent]),
+        TypeOrmModule.forFeature([Car, Client, Rent]),
       ],
       providers: [CarsService, RentService, ClientService],
       controllers: [CarsController],

@@ -164,7 +164,7 @@ describe('Cars controller', () => {
 
     it('Should return a exception when trying to delete a car with an error', async () => {
       try {
-        await controller.removeCar(null);
+        await controller.removeCar(undefined);
       } catch (error) {
         expect(error.response).toBe('Fail at delete car');
       }

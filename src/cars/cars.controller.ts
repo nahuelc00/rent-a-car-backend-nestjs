@@ -28,7 +28,7 @@ export class CarsController {
   constructor(private readonly carsService: CarsService) {}
 
   @Get()
-  async getCars(): Promise<ICarMappedFromDb[]> {
+  async getCars() {
     const cars: Car[] = await this.carsService.getAll();
     const carsMapped: ICarMappedFromDb[] = cars.map((car) => mapEntity(car));
 
@@ -36,7 +36,7 @@ export class CarsController {
   }
 
   @Get(':id')
-  async getCar(@Param('id') id: string): Promise<ICarMappedFromDb> {
+  async getCar(@Param('id') id: string) {
     const car: Car = await this.carsService.getById(Number(id));
     const isCarNotFound = car === null;
 
@@ -56,7 +56,7 @@ export class CarsController {
   async saveCar(
     @UploadedFile() file: Express.Multer.File,
     @Body() carToSave: CreateCarDto,
-  ): Promise<any> {
+  ) {
     const car = await this.carsService.getByLicensePlate(
       carToSave.licensePlate,
     );
@@ -92,7 +92,7 @@ export class CarsController {
   async updateCar(
     @Body() carToUpdate: UpdateCarDto,
     @UploadedFile() file: Express.Multer.File,
-  ): Promise<UpdateResult> {
+  ) {
     try {
       const imageUrl = `http://localhost:${process.env.PORT}/${file.filename}`;
       const carMappedToDb: ICarMappedToDb = mapEntityToDb({
@@ -105,11 +105,6 @@ export class CarsController {
         carMappedToDb,
       );
 
-      const isCarNotFound = resultCarUpdated.affected === 0;
-
-      if (isCarNotFound)
-        throw new HttpException('Car not found', HttpStatus.NOT_FOUND);
-
       return resultCarUpdated;
     } catch (error) {
       throw new HttpException('Fail at update car', HttpStatus.BAD_REQUEST);
@@ -117,16 +112,11 @@ export class CarsController {
   }
 
   @Delete(':id')
-  async removeCar(@Param('id') id: string): Promise<DeleteResult> {
+  async removeCar(@Param('id') id: string) {
     try {
       const resultCarDeleted: DeleteResult = await this.carsService.remove(
         Number(id),
       );
-
-      const isCarNotFound = resultCarDeleted.affected === 0;
-
-      if (isCarNotFound)
-        throw new HttpException('Car not found', HttpStatus.NOT_FOUND);
 
       return resultCarDeleted;
     } catch (error) {

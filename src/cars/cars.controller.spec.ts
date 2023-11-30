@@ -138,6 +138,14 @@ describe('Cars controller', () => {
       );
       expect(resultOfUpdate.affected).toBe(0);
     });
+
+    it('Should return a exception when trying to update a car with an error', async () => {
+      try {
+        await controller.updateCar(null, multerFileMock);
+      } catch (error) {
+        expect(error.response).toBe('Fail at update car');
+      }
+    });
   });
 
   describe('Delete a car', () => {
@@ -156,7 +164,7 @@ describe('Cars controller', () => {
 
     it('Should return a exception when trying to delete a car with an error', async () => {
       try {
-        await controller.removeCar(undefined);
+        await controller.removeCar(null);
       } catch (error) {
         expect(error.response).toBe('Fail at delete car');
       }

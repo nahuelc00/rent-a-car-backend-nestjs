@@ -1,6 +1,6 @@
 import { assignImageUrlByEnvironment } from './utilities';
 
-describe('Utilities', () => {
+describe('Cars utilities', () => {
   it('Should return the url of the image made for the development', () => {
     process.env.NODE_ENV = 'development';
 

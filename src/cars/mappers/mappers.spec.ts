@@ -3,7 +3,7 @@ import { mapEntity } from './mapEntityFromDb';
 import { ICarToDb } from '../interfaces/car-to-db.interface';
 import { Car } from '../entities/car.entity';
 
-describe('Mappers', () => {
+describe('Cars mappers', () => {
   describe('Mapping to database', () => {
     it('Should receive a car in camelCase and return a mapped car in snake_case', () => {
       const carToDbMock: ICarToDb = {

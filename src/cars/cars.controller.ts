@@ -23,6 +23,21 @@ import { ICarMappedToDb } from './interfaces/car-mapped-to-db.interface';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 
+function assignImageUrlByEnvironment(filename) {
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  const isTesting = process.env.NODE_ENV === 'testing';
+  const isProduction = process.env.NODE_ENV === 'production';
+
+  let imageUrl = '';
+
+  if (isDevelopment || isTesting)
+    imageUrl = `http://localhost:${process.env.PORT}/${filename}`;
+  if (isProduction)
+    imageUrl = `https://${process.env.PRODUCTION_URL}/${filename}`;
+
+  return imageUrl;
+}
+
 @Controller('cars')
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}
@@ -66,10 +81,7 @@ export class CarsController {
       throw new HttpException('This car already exists', HttpStatus.CONFLICT);
 
     try {
-      const imageUrl =
-        process.env.NODE_ENV === 'development'
-          ? `http://localhost:${process.env.PORT}/${file.filename}`
-          : `https://${process.env.PRODUCTION_URL}/${file.filename}`;
+      const imageUrl = assignImageUrlByEnvironment(file.filename);
 
       const carToDb: ICarMappedToDb = mapEntityToDb({ ...carToSave, imageUrl });
 
@@ -94,7 +106,8 @@ export class CarsController {
     @UploadedFile() file: Express.Multer.File,
   ) {
     try {
-      const imageUrl = `http://localhost:${process.env.PORT}/${file.filename}`;
+      const imageUrl = assignImageUrlByEnvironment(file.filename);
+
       const carMappedToDb: ICarMappedToDb = mapEntityToDb({
         ...carToUpdate,
         imageUrl,

@@ -27,6 +27,8 @@ describe('Client controller', () => {
     userController = module.get<UserController>(UserController);
   });
 
+  process.env.PRIVATE_KEY_JWT = 'asdf';
+
   const createClientDtoMock = {
     firstname: 'Pepe',
     lastname: 'Pepeapellido',
@@ -76,8 +78,6 @@ describe('Client controller', () => {
 
   describe('Get client', () => {
     it('Should get a client if is user admin', async () => {
-      process.env.PRIVATE_KEY_JWT = 'asdf';
-
       await controller.registerClient(createClientDtoMock);
 
       await userController.register({
@@ -120,8 +120,6 @@ describe('Client controller', () => {
     });
 
     it('Should give error when trying get a client and not is user admin', async () => {
-      process.env.PRIVATE_KEY_JWT = 'asdf';
-
       await controller.registerClient(createClientDtoMock);
 
       await userController.register({

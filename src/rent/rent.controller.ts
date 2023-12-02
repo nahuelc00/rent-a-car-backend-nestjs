@@ -114,9 +114,9 @@ export class RentController {
           message: 'Rent not found',
           statusCode: HttpStatus.NOT_FOUND,
         });
+      } else {
+        response.status(HttpStatus.OK).send(resultRentUpdated);
       }
-
-      response.status(HttpStatus.OK).send(resultRentUpdated);
     } catch (e) {
       throw new HttpException(
         'Fail to update. Check the credentials.',
@@ -136,9 +136,9 @@ export class RentController {
           message: 'Rent not found',
           statusCode: HttpStatus.NOT_FOUND,
         });
+      } else {
+        response.status(HttpStatus.OK).send(resultRentDeleted);
       }
-
-      response.status(HttpStatus.OK).send(resultRentDeleted);
     } catch (error) {
       throw new HttpException('Fail at delete rent', HttpStatus.BAD_REQUEST);
     }

@@ -32,3 +32,11 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# FOLDERS
+/database
+/uploads
+/dist
+
+# ENV
+.env

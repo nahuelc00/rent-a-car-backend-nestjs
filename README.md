@@ -2,7 +2,7 @@
 
 Backend of the rent a car project. Made with NestJs.
  
-This API has a functionality of register and login. Allow get and save cars, clients, users and rents.   
+This API has a registration and login functionality. Allows you to get and save cars, client, users and rents.
 
 ## Installation
 

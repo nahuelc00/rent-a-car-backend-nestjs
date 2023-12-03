@@ -12,7 +12,7 @@ const CONFIG_DB_PRODUCTION: TypeOrmModuleOptions = {
   password: process.env.POSTGRESQL_PASSWORD,
   database: process.env.POSTGRESQL_DATABASE,
   entities: [User, Car, Client, Rent],
-  synchronize: true,
+  synchronize: false,
 };
 
 const CONFIG_DB_DEVELOPMENT: TypeOrmModuleOptions = {

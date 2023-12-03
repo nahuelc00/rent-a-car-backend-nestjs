@@ -1,6 +1,6 @@
 # Rent a car API
 
-Backend of the rent a car project. Made with NestJs.
+Backend of the rent a car project. Made with NestJs and tested with Jest.
  
 This API has a registration and login functionality. Allows you to get and save cars, client, users and rents.
 

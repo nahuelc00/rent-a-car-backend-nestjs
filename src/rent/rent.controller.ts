@@ -119,7 +119,7 @@ export class RentController {
       }
     } catch (e) {
       throw new HttpException(
-        'Fail to update. Check the credentials.',
+        'Fail to update. Check the car and client data',
         HttpStatus.CONFLICT,
       );
     }

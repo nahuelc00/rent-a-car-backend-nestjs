@@ -171,7 +171,9 @@ describe('Rent controller', () => {
         });
       } catch (error) {
         expect(error.status).toBe(409);
-        expect(error.response).toBe('Fail to update. Check the credentials.');
+        expect(error.response).toBe(
+          'Fail to update. Check the car and client data',
+        );
       }
     });
   });

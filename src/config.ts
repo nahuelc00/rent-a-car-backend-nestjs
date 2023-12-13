@@ -16,9 +16,13 @@ const CONFIG_DB_PRODUCTION: TypeOrmModuleOptions = {
 };
 
 const CONFIG_DB_DEVELOPMENT: TypeOrmModuleOptions = {
-  type: 'sqlite',
-  database: 'database/database.db',
-  entities: [Car, User, Client, Rent],
+  type: 'postgres',
+  host: 'postgresdb',
+  port: Number(process.env.POSTGRES_PORT),
+  username: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DB,
+  entities: [User, Car, Client, Rent],
   synchronize: true,
 };
 

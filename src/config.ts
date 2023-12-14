@@ -19,9 +19,9 @@ const CONFIG_DB_DEVELOPMENT: TypeOrmModuleOptions = {
   type: 'postgres',
   host: 'postgresdb',
   port: Number(process.env.POSTGRES_PORT),
-  username: process.env.POSTGRES_USER,
+  username: 'postgres',
   password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DB,
+  database: 'postgres',
   entities: [User, Car, Client, Rent],
   synchronize: true,
 };

@@ -4,18 +4,12 @@ Backend of the rent a car project. Made with NestJs and tested with Jest.
  
 This API has a registration and login functionality. Allows you to get and save cars, client, users and rents.
 
-## Installation
-
-```bash
-npm install
-```
-
 ## Usage
 First all: Create the .env file and set the environment variables of the .env.dist file and add the values to it.
 
-After this, for run project:
+After this, for run docker:
 ```bash
-npm run start
+docker compose up
 ``` 
 
 ### Testing

@@ -1,6 +1,7 @@
 function assignImageUrlByEnvironment(filename: string) {
   const isDevelopment = process.env.NODE_ENV === 'development';
-  const isTesting = process.env.NODE_ENV === 'testing';
+  const isTesting =
+    process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'test-e2e';
   const isProduction = process.env.NODE_ENV === 'production';
 
   let imageUrl = '';

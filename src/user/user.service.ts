@@ -32,4 +32,8 @@ export class UserService {
     const userSaved = await this.usersRepository.save(user);
     return userSaved;
   }
+
+  async removeAll() {
+    return await this.usersRepository.clear();
+  }
 }

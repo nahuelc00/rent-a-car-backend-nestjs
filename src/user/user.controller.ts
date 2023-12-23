@@ -7,6 +7,7 @@ import {
   Req,
   HttpException,
   HttpStatus,
+  Delete,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -75,5 +76,12 @@ export class UserController {
     } else {
       throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
+  }
+
+  @Delete()
+  async reset() {
+    const isTestingE2E = process.env.NODE_ENV === 'test-e2e';
+    if (isTestingE2E) return this.userService.removeAll();
+    throw new HttpException('Not found', HttpStatus.NOT_FOUND);
   }
 }

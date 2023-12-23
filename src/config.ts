@@ -33,10 +33,18 @@ const CONFIG_DB_UNIT_TESTING: TypeOrmModuleOptions = {
   synchronize: true,
 };
 
+const CONFIG_DB_TEST_E2E: TypeOrmModuleOptions = {
+  type: 'sqlite',
+  database: 'database/test-e2e.db',
+  entities: [Car, User, Client, Rent],
+  synchronize: true,
+};
+
 function assignDatabaseConfig(NODE_ENV: string) {
   if (NODE_ENV === 'production') return CONFIG_DB_PRODUCTION;
   if (NODE_ENV === 'development') return CONFIG_DB_DEVELOPMENT;
   if (NODE_ENV === 'testing') return CONFIG_DB_UNIT_TESTING;
+  if (NODE_ENV === 'test-e2e') return CONFIG_DB_TEST_E2E;
 }
 
 export { assignDatabaseConfig };

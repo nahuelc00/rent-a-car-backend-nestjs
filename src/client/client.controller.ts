@@ -9,6 +9,7 @@ import {
   Param,
   Req,
   Res,
+  Delete,
 } from '@nestjs/common';
 import { ClientService } from './client.service';
 import { CreateClientDto } from './dto/create-client.dto';
@@ -81,5 +82,12 @@ export class ClientController {
     const clientRegistered = await this.clientService.register(clientToDB);
 
     return { registered: clientRegistered.email };
+  }
+
+  @Delete()
+  async reset() {
+    const isTestingE2E = process.env.NODE_ENV === 'test-e2e';
+    if (isTestingE2E) return this.clientService.removeAll();
+    throw new HttpException('Not found', HttpStatus.NOT_FOUND);
   }
 }

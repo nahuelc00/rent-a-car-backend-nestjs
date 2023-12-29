@@ -50,4 +50,8 @@ export class CarsService {
 
     return resultCarDeleted;
   }
+
+  async removeAll() {
+    return await this.carsRepository.clear();
+  }
 }

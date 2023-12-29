@@ -33,4 +33,8 @@ export class ClientService {
     const client = await this.clientsRepository.findOneBy({ id });
     return client;
   }
+
+  async removeAll() {
+    return await this.clientsRepository.clear();
+  }
 }

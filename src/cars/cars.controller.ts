@@ -125,4 +125,11 @@ export class CarsController {
       throw new HttpException('Fail at delete car', HttpStatus.BAD_REQUEST);
     }
   }
+
+  @Delete()
+  async reset() {
+    const isTestingE2E = process.env.NODE_ENV === 'test-e2e';
+    if (isTestingE2E) return this.carsService.removeAll();
+    throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+  }
 }

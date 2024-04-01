@@ -4,7 +4,7 @@
 
 ![](./DIAGRAM-DB.png)
 
-#### Summary
+## Summary
 
 Backend of the rent a car project. Made with NestJs and tested with Jest.
  
